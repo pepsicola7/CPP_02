@@ -1,15 +1,14 @@
 # nom de l'excutable
-TARGET = ./Harl
+TARGET = ./a.out
 
 #Compilateur
 CXX = c++
 
 #Flags
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 #-g -fsanitize=address
 
 #Fichier sources et objets
-SRC = main.cpp \
-		Fixed.cpp \
+SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 
 #regle principale
