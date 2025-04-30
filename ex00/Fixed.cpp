@@ -6,13 +6,11 @@
 /*   By: peli <peli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:22:57 by peli              #+#    #+#             */
-/*   Updated: 2025/04/29 19:45:19 by peli             ###   ########.fr       */
+/*   Updated: 2025/04/30 17:37:52 by peli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-
-static const int	bits = 8;
 
 Fixed::Fixed()
 {
@@ -27,7 +25,9 @@ Fixed::~Fixed()
 
 Fixed::Fixed(const Fixed& num)
 {
-	fixed_point = int(num.fixed_point);
+	std::cout << "Copy constructor called" << std::endl;
+	*this = num;
+	// fixed_point = int(num.fixed_point);
 }
 
 Fixed&	Fixed::operator = (const Fixed& num)
@@ -35,7 +35,7 @@ Fixed&	Fixed::operator = (const Fixed& num)
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &num)
 	{
-		this->fixed_point = num.fixed_point;
+		this->fixed_point = num.getRawBits();
 	}
 	return (*this);
 }
@@ -43,15 +43,10 @@ Fixed&	Fixed::operator = (const Fixed& num)
 int	Fixed::getRawBits( void ) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
-
+	return (this->fixed_point);
 }
 
 void	Fixed::setRawBits( int const raw )
 {
-
+	this->fixed_point = raw;
 }
-
-// ◦ A member function int getRawBits( void ) const;
-// that returns the raw value of the fixed-point value.
-// ◦ A member function void setRawBits( int const raw );
-// that sets the raw value of the fixed-point number.
