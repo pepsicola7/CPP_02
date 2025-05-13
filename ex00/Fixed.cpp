@@ -6,7 +6,7 @@
 /*   By: peli <peli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:22:57 by peli              #+#    #+#             */
-/*   Updated: 2025/04/30 17:37:52 by peli             ###   ########.fr       */
+/*   Updated: 2025/05/13 14:59:43 by peli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ Fixed::Fixed(const Fixed& num)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = num;
-	// fixed_point = int(num.fixed_point);
 }
 
 Fixed&	Fixed::operator = (const Fixed& num)
