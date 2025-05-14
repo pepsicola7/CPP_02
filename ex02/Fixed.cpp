@@ -6,7 +6,7 @@
 /*   By: peli <peli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 16:11:23 by peli              #+#    #+#             */
-/*   Updated: 2025/05/13 18:11:48 by peli             ###   ########.fr       */
+/*   Updated: 2025/05/14 18:14:30 by peli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,15 @@ std::ostream&	operator<<(std::ostream& out, const Fixed& value)
 
 Fixed::Fixed() : fixed_point(0)
 {
-	std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const Fixed& num)
 {
-	std::cout << "Copy constructor called" << std::endl;
 	*this = num;
 }
 
 Fixed& Fixed::operator=(const Fixed& other)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &other)
 		this->fixed_point = other.fixed_point;
 	return *this;
@@ -39,13 +36,11 @@ Fixed& Fixed::operator=(const Fixed& other)
 
 Fixed::Fixed(const int i)
 {
-	std::cout << "Int constructor called" << std::endl;
 	fixed_point = i * (1 << fractional_bits);
 }
 
 Fixed::Fixed(const float f)
 {
-	std::cout << "Float constructor called" << std::endl;
 	fixed_point = roundf(f * (1 << fractional_bits));
 }
 
@@ -61,7 +56,7 @@ int	Fixed::toInt( void ) const
 
 Fixed::~Fixed()
 {
-	std::cout << "Destructor called" << std::endl;
+	
 }
 
 // Les fonctions de 6 comparison operators
@@ -100,27 +95,86 @@ bool    Fixed::operator!=(const Fixed& other) const
 
 Fixed Fixed::operator+(const Fixed& other) const
 {
-    return Fixed((this->toFlot() + other.toFlot()));
+    return Fixed((this->toFloat() + other.toFloat()));
 }
 
 Fixed Fixed::operator-(const Fixed& other) const
 {
-    return Fixed((this->toFlot() - other.toFlot()));
+    return Fixed((this->toFloat() - other.toFloat()));
 }
 
 Fixed Fixed::operator*(const Fixed& other) const
 {
-    return Fixed((this->toFlot() * other.toFlot()));
+    return Fixed((this->toFloat() * other.toFloat()));
 }
 
 Fixed Fixed::operator/(const Fixed& other) const
 {
-    return Fixed((this->toFlot() / other.toFlot()));
+    return Fixed((this->toFloat() / other.toFloat()));
 }
 
 //The 4 increment/decrement 
 
-Fixed Fixed::operator++()
+Fixed Fixed::operator++(int)
 {
-    return Fixed((this->toFlot() + ));
+	Fixed temps = *this;
+	this->fixed_point += 1;
+    return Fixed(temps);
 }
+
+Fixed& Fixed::operator++()
+{
+	this->fixed_point += 1;
+	return (*this);
+}
+
+Fixed Fixed::operator--(int)
+{
+	Fixed temps = *this;
+	this->fixed_point -= 1;
+    return Fixed(temps);
+}
+
+
+Fixed& Fixed::operator--()
+{
+	this->fixed_point -= 1;
+	return (*this);
+}
+
+//four public overloaded member functions
+
+Fixed&	Fixed::min(Fixed& a, Fixed& b)
+{
+	if (a.fixed_point > b.fixed_point)
+		return (b);
+	else
+		return (a);
+}
+
+const Fixed& Fixed::min(const Fixed& a, const Fixed& b)
+{
+	if (a.fixed_point < b.fixed_point)
+		return (a);
+	else
+		return (b);
+}
+
+Fixed&	Fixed::max(Fixed& a, Fixed& b)
+{
+	if (a.fixed_point < b.fixed_point)
+		return (b);
+	else
+		return (a);
+}
+
+const Fixed& Fixed::max(const Fixed& a, const Fixed& b)
+{
+	if (a.fixed_point > b.fixed_point)
+		return (a);
+	else
+		return (b);
+}
+
+// int *i = 7;
+// int j = *i;
